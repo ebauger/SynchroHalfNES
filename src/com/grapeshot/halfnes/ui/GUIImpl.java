@@ -158,6 +158,18 @@ public class GUIImpl extends JFrame implements GUIInterface {
         file.add(item = new JMenuItem("Quit"));
         item.addActionListener(listener);
         menus.add(file);
+        
+        JMenu lanmenu = new JMenu("LAN");
+        lanmenu.add(item = new JMenuItem("Create server..."));
+        item.addActionListener(listener);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        
+        lanmenu.add(item = new JMenuItem("Connect to..."));
+        item.addActionListener(listener);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        menus.add(lanmenu);
 
         JMenu nesmenu = new JMenu("NES");
         nesmenu.add(item = new JMenuItem("Reset"));
