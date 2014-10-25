@@ -483,6 +483,14 @@ public class GUIImpl extends JFrame implements GUIInterface {
         }
         nes.resume();
     }
+    
+    private void showCreateServerDialog() {
+    	//TODO
+    }
+    
+    private void showConnectToDialog() {
+    	//TODO
+    }
 
     public void savewindowposition() {
         PrefsSingleton.get().putInt("windowX", this.getX());
@@ -541,6 +549,10 @@ public class GUIImpl extends JFrame implements GUIInterface {
                 showControlsDialog();
             } else if (arg0.getActionCommand().equals("Cheat Codes")) {
                 showActionReplayDialog();
+            } else if (arg0.getActionCommand().equals("Create server...")) {
+            	showCreateServerDialog();
+            } else if (arg0.getActionCommand().equals("Connect to...")) {
+            	showConnectToDialog();
             }
         }
 
