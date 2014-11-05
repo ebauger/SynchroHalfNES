@@ -199,6 +199,11 @@ public class GUIImpl extends JFrame implements GUIInterface {
         item.addActionListener(listener);
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        
+        nesmenu.add(item = new JMenuItem("Multiplayer"));
+        item.addActionListener(listener);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
         nesmenu.addSeparator();
 
@@ -471,6 +476,15 @@ public class GUIImpl extends JFrame implements GUIInterface {
         }
         nes.resume();
     }
+    
+    private void showMultiplayerDialog() {
+    	final MultiplayerDialog dialog = new MultiplayerDialog(this, true);
+        dialog.setVisible(true);
+        /*if (dialog.okClicked()) {
+            padController1.setButtons();
+            padController2.setButtons();
+        }*/
+    }
 
     public void savewindowposition() {
         PrefsSingleton.get().putInt("windowX", this.getX());
@@ -529,6 +543,8 @@ public class GUIImpl extends JFrame implements GUIInterface {
                 showControlsDialog();
             } else if (arg0.getActionCommand().equals("Cheat Codes")) {
                 showActionReplayDialog();
+            } else if (arg0.getActionCommand().equals("Multiplayer")) {
+            	showMultiplayerDialog();
             }
         }
 
