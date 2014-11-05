@@ -158,18 +158,6 @@ public class GUIImpl extends JFrame implements GUIInterface {
         file.add(item = new JMenuItem("Quit"));
         item.addActionListener(listener);
         menus.add(file);
-        
-        JMenu lanmenu = new JMenu("LAN");
-        lanmenu.add(item = new JMenuItem("Create server..."));
-        item.addActionListener(listener);
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        
-        lanmenu.add(item = new JMenuItem("Connect to..."));
-        item.addActionListener(listener);
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        menus.add(lanmenu);
 
         JMenu nesmenu = new JMenu("NES");
         nesmenu.add(item = new JMenuItem("Reset"));
@@ -210,6 +198,11 @@ public class GUIImpl extends JFrame implements GUIInterface {
         nesmenu.add(item = new JMenuItem("Cheat Codes"));
         item.addActionListener(listener);
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        
+        nesmenu.add(item = new JMenuItem("Multiplayer"));
+        item.addActionListener(listener);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
         nesmenu.addSeparator();
@@ -484,12 +477,13 @@ public class GUIImpl extends JFrame implements GUIInterface {
         nes.resume();
     }
     
-    private void showCreateServerDialog() {
-    	//TODO
-    }
-    
-    private void showConnectToDialog() {
-    	//TODO
+    private void showMultiplayerDialog() {
+    	final MultiplayerDialog dialog = new MultiplayerDialog(this, true);
+        dialog.setVisible(true);
+        /*if (dialog.okClicked()) {
+            padController1.setButtons();
+            padController2.setButtons();
+        }*/
     }
 
     public void savewindowposition() {
@@ -549,10 +543,8 @@ public class GUIImpl extends JFrame implements GUIInterface {
                 showControlsDialog();
             } else if (arg0.getActionCommand().equals("Cheat Codes")) {
                 showActionReplayDialog();
-            } else if (arg0.getActionCommand().equals("Create server...")) {
-            	showCreateServerDialog();
-            } else if (arg0.getActionCommand().equals("Connect to...")) {
-            	showConnectToDialog();
+            } else if (arg0.getActionCommand().equals("Multiplayer")) {
+            	showMultiplayerDialog();
             }
         }
 
