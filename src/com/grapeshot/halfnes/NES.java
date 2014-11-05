@@ -5,6 +5,8 @@ import com.grapeshot.halfnes.cheats.ActionReplay;
 import com.grapeshot.halfnes.mappers.BadMapperException;
 import com.grapeshot.halfnes.mappers.Mapper;
 
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.prefs.Preferences;
 
 /**
@@ -52,6 +54,7 @@ public class NES {
     }
 
     public void run() {
+    	
         while (true) {
             if (runEmulation) {
                 frameStartTime = System.nanoTime();
