@@ -5,7 +5,10 @@
  */
 package com.grapeshot.halfnes.ui;
 
+import com.grapeshot.halfnes.Client;
 import com.grapeshot.halfnes.PrefsSingleton;
+import com.grapeshot.halfnes.Server;
+
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -15,6 +18,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -314,15 +318,17 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_selectROMButtonMouseClicked
 
     private void ipHostTextFieldComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ipHostTextFieldComponentShown
-
+   
     }//GEN-LAST:event_ipHostTextFieldComponentShown
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    	System.out.println("Joueur 1 (server)");
+    	Server s = new Server();
+    	s.openSocket();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void selectROMButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectROMButton1MouseClicked
-        // TODO add your handling code here:
+    	this.gui.loadROM();
     }//GEN-LAST:event_selectROMButton1MouseClicked
 
     private void selectROMButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectROMButton1ActionPerformed
@@ -330,7 +336,9 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_selectROMButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    	System.out.println("Joueur 2 (client)");
+    	Client c = new Client();
+    	c.connect();
     }//GEN-LAST:event_jButton2ActionPerformed
     /*
     Return False if client
