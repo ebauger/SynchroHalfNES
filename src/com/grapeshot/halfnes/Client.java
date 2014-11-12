@@ -37,35 +37,35 @@ public class Client {
 		}
 	}	
 	
+	public void send(String p_data) {
+		//String line = "";
+		//while (!line.equals(".bye")) {
+			try {
+				//line = console.readLine();
+				//System.out.println(p_data);
+				streamOut.writeUTF(p_data);
+				streamOut.flush();
+			} catch (IOException ioe) {
+				System.out.println("Sending error: " + ioe.getMessage());
+			}
+		//}	
+	}
+	
 	public void connect() {	
-    	DataInputStream is = null;
-    	DataOutputStream os = null;
-    	DataInputStream stdIn = new DataInputStream(System.in);
-				
+
     	try {
     		socket = new Socket(hostIPAddress, port);
 
     		start();
 	    	
 	    	System.out.println("Accepted connection : " + socket);     	    
-    	    
-			String line = "";
-			while (!line.equals(".bye")) {
-				try {
-					line = console.readLine();
-					streamOut.writeUTF(line);
-					streamOut.flush();
-				} catch (IOException ioe) {
-					System.out.println("Sending error: " + ioe.getMessage());
-				}
-			}		
-    		
+
     	} catch (UnknownHostException e) {
     	    e.printStackTrace();
     	} catch (IOException e) {
     	    e.printStackTrace();
     	} finally {
-    		stop();
+    		//stop();
     	}
 	}
 }

@@ -8,6 +8,7 @@ package com.grapeshot.halfnes.ui;
 import com.grapeshot.halfnes.Client;
 import com.grapeshot.halfnes.PrefsSingleton;
 import com.grapeshot.halfnes.Server;
+import com.grapeshot.halfnes.UtilsConnexion;
 
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
@@ -322,9 +323,10 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_ipHostTextFieldComponentShown
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    	System.out.println("Joueur 1 (server)");
     	Server s = new Server();
-    	s.openSocket();
+    	s.startServer();
+    	UtilsConnexion.setServer(s);
+    	System.out.println("Joueur 1 (server)");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void selectROMButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectROMButton1MouseClicked
@@ -339,6 +341,7 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     	System.out.println("Joueur 2 (client)");
     	Client c = new Client();
     	c.connect();
+    	UtilsConnexion.setClient(c);
     }//GEN-LAST:event_jButton2ActionPerformed
     /*
     Return False if client

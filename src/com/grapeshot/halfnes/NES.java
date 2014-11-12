@@ -14,7 +14,6 @@ import java.util.prefs.Preferences;
  * @author Andrew Hoffman
  */
 public class NES {
-
     private Mapper mapper;
     private APU apu;
     private CPU cpu;
@@ -176,6 +175,7 @@ public class NES {
 
             framecount = 0;
             //if savestate exists, load it
+            
             if (mapper.hasSRAM()) {
                 loadSRAM();
             }
@@ -293,6 +293,7 @@ public class NES {
             apu.setParameters();
         }
     }
+    
 
     /**
      * Access to the Pro Action Replay device.

@@ -1,14 +1,18 @@
 package com.grapeshot.halfnes.ui;
 //HalfNES, Copyright Andrew Hoffman, October 2010
 
+import com.grapeshot.halfnes.Client;
 import com.grapeshot.halfnes.FileUtils;
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.PrefsSingleton;
+import com.grapeshot.halfnes.Server;
+import com.grapeshot.halfnes.UtilsConnexion;
 import com.grapeshot.halfnes.video.RGBRenderer;
 import com.grapeshot.halfnes.cheats.ActionReplay;
 import com.grapeshot.halfnes.cheats.ActionReplayGui;
 import com.grapeshot.halfnes.video.NTSCRenderer;
 import com.grapeshot.halfnes.video.Renderer;
+
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -26,6 +30,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+
 import javax.swing.*;
 
 public class GUIImpl extends JFrame implements GUIInterface {
@@ -44,6 +49,10 @@ public class GUIImpl extends JFrame implements GUIInterface {
     private Renderer renderer;
     private final ControllerImpl padController1, padController2;
 
+    /* TODOJO
+     * BOUCLE JEU (une partie)
+     * keyReleased dans ControllerImpl
+     */
     public GUIImpl(NES nes) {
         this.nes = nes;
         screenScaleFactor = PrefsSingleton.get().getInt("screenScaling", 2);
@@ -52,6 +61,7 @@ public class GUIImpl extends JFrame implements GUIInterface {
         nes.setControllers(padController1, padController2);
         padController1.startEventQueue();
         padController2.startEventQueue();
+
     }
 
     public synchronized void setRenderOptions() {
@@ -557,6 +567,10 @@ public class GUIImpl extends JFrame implements GUIInterface {
             savewindowposition();
             padController1.stopEventQueue();
             padController2.stopEventQueue();
+            if (UtilsConnexion.getServer() != null)
+            	UtilsConnexion.getServer().close();
+            if (UtilsConnexion.getClient() != null)
+            	UtilsConnexion.getClient().stop();
             nes.quit();
 
         }
@@ -583,5 +597,6 @@ public class GUIImpl extends JFrame implements GUIInterface {
         @Override
         public void windowDeactivated(WindowEvent e) {
         }
+        
     }
 }

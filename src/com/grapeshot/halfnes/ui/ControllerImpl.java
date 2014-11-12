@@ -5,7 +5,10 @@
 package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.PrefsSingleton;
+import com.grapeshot.halfnes.UtilsConnexion;
+
 import static com.grapeshot.halfnes.utils.*;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -69,6 +72,9 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
             controllerbyte &= ~(BIT6 | BIT7);
             controllerbyte |= (prevbyte & ~(BIT6 | BIT7));
         }
+        
+        //System.out.println(controllerbyte);
+        UtilsConnexion.getClient().send(Integer.toString(controllerbyte));
 
     }
 
@@ -80,6 +86,7 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
             return;
         }
         controllerbyte &= ~m.get(kepressed);
+        
     }
 
     public int getbyte() {
@@ -172,7 +179,8 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
                             }
                         }
 
-
+         
+                        
                         try {
                             Thread.sleep(5);
                         } catch (InterruptedException e) {
