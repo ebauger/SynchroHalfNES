@@ -85,7 +85,6 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
         if (!m.containsKey(kepressed)) {
             return;
         }
-        System.out.println(controllerbyte); //debug
         controllerbyte &= ~m.get(kepressed);
         
     }
