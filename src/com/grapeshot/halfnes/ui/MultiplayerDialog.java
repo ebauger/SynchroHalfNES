@@ -143,7 +143,7 @@ public class MultiplayerDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Start Server");
+        jButton2.setText("Connect...");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -215,7 +215,8 @@ public class MultiplayerDialog extends javax.swing.JDialog {
 
         nameROMLabel.setText("ROM Selected : ");
 
-        jButton1.setText("Start Server");
+        jButton1.setText("Start Server...");
+        jButton1.setToolTipText("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

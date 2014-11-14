@@ -14,21 +14,22 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server implements Closeable {
-	private final int port = 1337;
-	private final String hostName = "127.0.0.1";
-	private Socket socket = null;
-	private DataInputStream is = null;
-	private DataOutputStream os = null;
-	private ServerSocket server = null;
-	
-	public void startServer() {
+
+    private final int port = 1337;
+    private final String hostName = "127.0.0.1";
+    private Socket socket = null;
+    private DataInputStream is = null;
+    private DataOutputStream os = null;
+    private ServerSocket server = null;
+
+    public void startServer() {
         final ExecutorService clientProcessingPool = Executors.newFixedThreadPool(2);
 
         Runnable serverTask = new Runnable() {
             @Override
             public void run() {
                 try {
-                	server = new ServerSocket(port);
+                    server = new ServerSocket(port);
                     System.out.println("Waiting for clients to connect...");
                     while (true) {
                         socket = server.accept();
@@ -44,8 +45,9 @@ public class Server implements Closeable {
         serverThread.start();
 
     }
-	
-	private class ClientTask implements Runnable {
+
+    private class ClientTask implements Runnable {
+
         private final Socket clientSocket;
 
         private ClientTask(Socket clientSocket) {
@@ -57,57 +59,62 @@ public class Server implements Closeable {
             System.out.println("Got a client !");
 
             receive();
+            //loadROM()
+
             // Do whatever required to process the client's request
 
             /*
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            */
+             try {
+             clientSocket.close();
+             } catch (IOException e) {
+             e.printStackTrace();
+             }
+             */
         }
     }
-	
-	public void receive() {
-		boolean done = false;
-		try {
-	    	//socket = server.accept();
-	    	open();
-			
-			while (!done) {
-				
-					String line = is.readUTF();
-					
-					System.out.println(line);
-					
-					os.writeBytes(line + " du client");
-					
-					done = line.equals(".bye");
-	
-			}
-		} catch (IOException ioe) {
-			done = true;
-		}
-	}
-	
-	public void open() throws IOException {
-		is = new DataInputStream(new BufferedInputStream(
-				socket.getInputStream()));
-		os = new DataOutputStream(socket.getOutputStream());
-	}
 
-	public void close() {
-		try {
-			if (socket != null)
-				socket.close();
-			if (is != null)
-				is.close();
-			if (server != null)
-				server.close();
-		} catch (IOException ioe) {
+    public void receive() {
+        boolean done = false;
+        try {
+            //socket = server.accept();
+            open();
 
-		}
-	}
-	
+            while (!done) {
+
+                String line = is.readUTF();
+
+                System.out.println(line);
+
+                os.writeBytes(line + " du client");
+
+                done = line.equals(".bye");
+
+            }
+        } catch (IOException ioe) {
+            done = true;
+        }
+    }
+
+    public void open() throws IOException {
+        is = new DataInputStream(new BufferedInputStream(
+                socket.getInputStream()));
+        os = new DataOutputStream(socket.getOutputStream());
+    }
+
+    public void close() {
+        try {
+            if (socket != null) {
+                socket.close();
+            }
+            if (is != null) {
+                is.close();
+            }
+            if (server != null) {
+                server.close();
+            }
+        } catch (IOException ioe) {
+
+        }
+    }
+
 }

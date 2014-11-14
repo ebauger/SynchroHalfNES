@@ -88,6 +88,10 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
         controllerbyte &= ~m.get(kepressed);
         
     }
+    
+    public int getLastKeyReleased(){
+        return controllerbyte;
+    }
 
     public int getbyte() {
         return outbyte;
