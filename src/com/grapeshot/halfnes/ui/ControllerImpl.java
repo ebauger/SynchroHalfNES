@@ -5,7 +5,6 @@
 package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.PrefsSingleton;
-import com.grapeshot.halfnes.UtilsConnexion;
 
 import static com.grapeshot.halfnes.utils.*;
 
@@ -74,7 +73,7 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
         }
         
         //System.out.println(controllerbyte);
-        UtilsConnexion.getClient().send(Integer.toString(controllerbyte));
+        //UtilsConnexion.getClient().send(Integer.toString(controllerbyte));
 
     }
 
@@ -110,6 +109,11 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
 
     public void output(final boolean state) {
         latchbyte = gamepadbyte | controllerbyte;
+    }
+    
+    @Override
+    public int getLatchByte(){
+        return (this.gamepadbyte | this.controllerbyte);
     }
 
     /**

@@ -5,10 +5,8 @@
  */
 package com.grapeshot.halfnes.ui;
 
-import com.grapeshot.halfnes.Client;
 import com.grapeshot.halfnes.PrefsSingleton;
-import com.grapeshot.halfnes.Server;
-import com.grapeshot.halfnes.UtilsConnexion;
+import com.grapeshot.halfnes.net.LANManager;
 
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
@@ -315,8 +313,9 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_selectROMButtonActionPerformed
 
     private void selectROMButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectROMButtonMouseClicked
-        this.gui.loadROM();
-        // TODO add your handling code here:
+        this.gui.loadROMPath();
+        LANManager.getInstance().setPathROM(this.gui.getROMpath());
+
     }//GEN-LAST:event_selectROMButtonMouseClicked
 
     private void ipHostTextFieldComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ipHostTextFieldComponentShown
@@ -324,14 +323,16 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_ipHostTextFieldComponentShown
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    	Server s = new Server();
-    	s.startServer();
-    	UtilsConnexion.setServer(s);
-    	System.out.println("Joueur 1 (server)");
+    	LANManager.getInstance().init(true, this.gui.nes);
+        LANManager.getInstance().ready();
+        System.out.println("Player 1 (server)");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void selectROMButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectROMButton1MouseClicked
-    	this.gui.loadROM();
+    	this.gui.loadROMPath();
+        LANManager.getInstance().setPathROM(this.gui.getROMpath());
+
+        
     }//GEN-LAST:event_selectROMButton1MouseClicked
 
     private void selectROMButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectROMButton1ActionPerformed
@@ -339,10 +340,13 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_selectROMButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    	System.out.println("Joueur 2 (client)");
-    	Client c = new Client();
-    	c.connect();
-    	UtilsConnexion.setClient(c);
+        LANManager.getInstance().init(false, this.ipClientTextField.getText() ,this.gui.nes);
+        LANManager.getInstance().ready();
+        System.out.println("Joueur 2 (client)");
+        //this.gui.nes.isLAN = true;
+        //Client c = new Client();
+    	//c.connect();
+    	//UtilsConnexion.setClient(c);
     }//GEN-LAST:event_jButton2ActionPerformed
     /*
     Return False if client

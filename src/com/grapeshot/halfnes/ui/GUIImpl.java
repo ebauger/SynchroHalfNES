@@ -1,15 +1,13 @@
 package com.grapeshot.halfnes.ui;
 //HalfNES, Copyright Andrew Hoffman, October 2010
 
-import com.grapeshot.halfnes.Client;
 import com.grapeshot.halfnes.FileUtils;
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.PrefsSingleton;
-import com.grapeshot.halfnes.Server;
-import com.grapeshot.halfnes.UtilsConnexion;
 import com.grapeshot.halfnes.video.RGBRenderer;
 import com.grapeshot.halfnes.cheats.ActionReplay;
 import com.grapeshot.halfnes.cheats.ActionReplayGui;
+import com.grapeshot.halfnes.net.LANManager;
 import com.grapeshot.halfnes.video.NTSCRenderer;
 import com.grapeshot.halfnes.video.Renderer;
 
@@ -37,7 +35,7 @@ public class GUIImpl extends JFrame implements GUIInterface {
 
     private Canvas canvas;
     private BufferStrategy buffer;
-    private final NES nes;
+    public final NES nes;
     private static final long serialVersionUID = 6411494245530679723L;
     private final AL listener = new AL();
     private int screenScaleFactor;
@@ -48,7 +46,9 @@ public class GUIImpl extends JFrame implements GUIInterface {
     private int NES_HEIGHT = 224, NES_WIDTH;
     private Renderer renderer;
     private final ControllerImpl padController1, padController2;
-
+    private String ROMpath;
+    public String ipAddress;
+    public LANManager lanm;
     /* TODOJO
      * BOUCLE JEU (une partie)
      * keyReleased dans ControllerImpl
@@ -231,7 +231,14 @@ public class GUIImpl extends JFrame implements GUIInterface {
         menus.add(help);
         this.setJMenuBar(menus);
     }
-
+/*
+    public void initLANmode(){
+        if(this.nes.isHost)
+            lanm = new LANManager(true, this.nes) // Host mode
+        else
+            lanm = new LANManager(false,  ,this.nes) // Client mode
+    }*/
+    
     public void loadROM() {
         FileDialog fileDialog = new FileDialog(this);
         fileDialog.setMode(FileDialog.LOAD);
@@ -261,6 +268,41 @@ public class GUIImpl extends JFrame implements GUIInterface {
             toggleFullScreen();
         }
     }
+    
+    public void loadROMPath() {
+        FileDialog fileDialog = new FileDialog(this);
+        fileDialog.setMode(FileDialog.LOAD);
+        fileDialog.setTitle("Select a ROM to load");
+        //should open last folder used, and if that doesn't exist, the folder it's running in
+        final String path = PrefsSingleton.get().get("filePath", System.getProperty("user.dir", ""));
+        final File startDirectory = new File(path);
+        if (startDirectory.isDirectory()) {
+            fileDialog.setDirectory(path);
+        }
+        //and if the last path used doesn't exist don't set the directory at all
+        //and hopefully the jFileChooser will open somewhere usable
+        //on Windows it does - on Mac probably not.
+        fileDialog.setFilenameFilter(new NESFileFilter());
+        boolean wasInFullScreen = false;
+        if (inFullScreen) {
+            wasInFullScreen = true;
+            //load dialog won't show if we are in full screen, so this fixes for now.
+            toggleFullScreen();
+        }
+        fileDialog.setVisible(true);
+        if (fileDialog.getFile() != null) {
+            PrefsSingleton.get().put("filePath", fileDialog.getDirectory());
+            this.ROMpath = fileDialog.getDirectory() + fileDialog.getFile();
+        }
+        if (wasInFullScreen) {
+            toggleFullScreen();
+        }
+    }
+    
+    public String getROMpath(){
+        return this.ROMpath;
+    }
+
 
     private void loadROM(String path) {
         if (path.endsWith(".zip") || path.endsWith(".ZIP")) {
@@ -567,10 +609,6 @@ public class GUIImpl extends JFrame implements GUIInterface {
             savewindowposition();
             padController1.stopEventQueue();
             padController2.stopEventQueue();
-            if (UtilsConnexion.getServer() != null)
-            	UtilsConnexion.getServer().close();
-            if (UtilsConnexion.getClient() != null)
-            	UtilsConnexion.getClient().stop();
             nes.quit();
 
         }

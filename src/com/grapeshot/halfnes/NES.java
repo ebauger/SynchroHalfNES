@@ -4,6 +4,7 @@ import com.grapeshot.halfnes.ui.*;
 import com.grapeshot.halfnes.cheats.ActionReplay;
 import com.grapeshot.halfnes.mappers.BadMapperException;
 import com.grapeshot.halfnes.mappers.Mapper;
+import com.grapeshot.halfnes.net.LANManager;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,7 +20,7 @@ public class NES {
     private CPU cpu;
     private CPURAM cpuram;
     private PPU ppu;
-    private ControllerInterface controller1, controller2;
+    public ControllerInterface controller1, controller2;
     final public static String VERSION = "058";
     public boolean runEmulation = false;
     private boolean dontSleep = false;
@@ -30,6 +31,12 @@ public class NES {
     private final FrameLimiterInterface limiter = new FrameLimiterImpl(this);
     // Pro Action Replay device
     private ActionReplay actionReplay;
+    public boolean isLAN = false;
+    public boolean isHost = false;
+    private static boolean SERVER = true;
+    private static boolean CLIENT = false;
+    public LANManager lanm = LANManager.getInstance();
+    public int frame = 1;
 
     public NES() {
         try {
@@ -53,11 +60,19 @@ public class NES {
     }
 
     public void run() {
-    	
         while (true) {
             if (runEmulation) {
                 frameStartTime = System.nanoTime();
                 actionReplay.applyPatches();
+                //LANMODE
+                if (isLAN) {
+                    frame++;
+                    if (frame % 2 == 0){
+                        frame = 0;
+                        lanm.controllerSendReceive();
+                    }
+                }
+                //ENDLANMODE   
                 runframe();
                 if (frameLimiterOn && !dontSleep) {
                     limiter.sleep();
@@ -182,7 +197,7 @@ public class NES {
             //and start emulation
             cpu.init();
             mapper.init();
-            runEmulation = true;
+            //runEmulation = true;
         } else {
             gui.messageBox("Could not load file:\nFile " + filename + "\n"
                     + "does not exist or is not a valid NES game.");

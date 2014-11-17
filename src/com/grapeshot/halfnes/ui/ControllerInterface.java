@@ -13,6 +13,8 @@ public interface ControllerInterface {
     public void strobe();
 
     public void output(final boolean state);
+        
+    public int getLatchByte();
 
     public int getbyte();
 }
