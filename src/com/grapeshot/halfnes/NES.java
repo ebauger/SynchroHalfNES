@@ -37,6 +37,7 @@ public class NES {
     private static boolean CLIENT = false;
     public LANManager lanm = LANManager.getInstance();
     public int frame = 1;
+    private static int MAXFRAME = 2;
 
     public NES() {
         try {
@@ -67,7 +68,7 @@ public class NES {
                 //LANMODE
                 if (isLAN) {
                     frame++;
-                    if (frame == 2){
+                    if (frame == MAXFRAME){
                         frame = 0;
                         long conStartTime = System.nanoTime();
                         lanm.controllerSendReceive();

@@ -90,7 +90,6 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         hostPane = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -105,6 +104,8 @@ public class MultiplayerDialog extends javax.swing.JDialog {
         selectROMButton = new javax.swing.JButton();
         nameROMLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        whiteIPTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -112,14 +113,7 @@ public class MultiplayerDialog extends javax.swing.JDialog {
             }
         });
 
-        okButton.setText("OK");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
-            }
-        });
-
-        cancelButton.setText("Cancel");
+        cancelButton.setText("Fermer");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
@@ -158,7 +152,7 @@ public class MultiplayerDialog extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(ipClientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -222,23 +216,31 @@ public class MultiplayerDialog extends javax.swing.JDialog {
             }
         });
 
+        whiteIPTextField.setToolTipText("Authorized IP Address");
+
+        jLabel3.setText("Authorized IP");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(ipHostTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(selectROMButton)
                         .addGap(18, 18, 18)
-                        .addComponent(nameROMLabel)))
-                .addContainerGap(166, Short.MAX_VALUE))
+                        .addComponent(nameROMLabel))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ipHostTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(whiteIPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +248,9 @@ public class MultiplayerDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(ipHostTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ipHostTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(whiteIPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectROMButton)
@@ -265,34 +269,21 @@ public class MultiplayerDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton))
                     .addComponent(hostPane))
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelButton, okButton});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(hostPane)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton))
+                .addComponent(cancelButton)
                 .addContainerGap())
         );
 
-        getRootPane().setDefaultButton(okButton);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        doClose(RET_OK);
-    }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
@@ -314,9 +305,11 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_selectROMButtonActionPerformed
 
     private void selectROMButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectROMButtonMouseClicked
+        this.gui.nes.isLAN = true;
         this.gui.loadROMPath();
         LANManager.getInstance().setPathROM(this.gui.getROMpath());
         this.gui.nes.loadROM(this.gui.getROMpath());
+        nameROMLabel.setText(nameROMLabel.getText() + this.gui.nes.getCurrentRomName());
 
 
     }//GEN-LAST:event_selectROMButtonMouseClicked
@@ -332,9 +325,11 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void selectROMButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectROMButton1MouseClicked
-    	this.gui.loadROMPath();
+    	this.gui.nes.isLAN = true;
+        this.gui.loadROMPath();
         LANManager.getInstance().setPathROM(this.gui.getROMpath());
         this.gui.nes.loadROM(this.gui.getROMpath());
+        nameROMLabel1.setText(nameROMLabel1.getText() + this.gui.nes.getCurrentRomName());
 
         
     }//GEN-LAST:event_selectROMButton1MouseClicked
@@ -417,13 +412,14 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel nameROMLabel;
     private javax.swing.JLabel nameROMLabel1;
-    private javax.swing.JButton okButton;
     private javax.swing.JButton selectROMButton;
     private javax.swing.JButton selectROMButton1;
+    private javax.swing.JTextField whiteIPTextField;
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
