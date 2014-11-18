@@ -81,4 +81,10 @@ public class DummyController implements ControllerInterface {
         }
         ++frame;
     }
+
+	@Override
+	public int getLatchByte() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

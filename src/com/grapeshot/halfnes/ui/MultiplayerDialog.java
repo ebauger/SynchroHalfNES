@@ -53,6 +53,7 @@ public class MultiplayerDialog extends javax.swing.JDialog {
         try {
             // TODO add your handling code here:
             ipHostTextField.setText(InetAddress.getLocalHost().getHostAddress());
+            ipClientTextField.setText(InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException ex) {
             Logger.getLogger(MultiplayerDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
