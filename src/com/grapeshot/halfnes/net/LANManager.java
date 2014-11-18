@@ -194,7 +194,7 @@ public class LANManager implements Runnable {
     public void run() {
         boolean ready = false;
         try {
-            //while (!ready) {
+            while (!ready) {
             String reading = this.in.readUTF();
             if (reading.equals("ready")) {
                 System.out.println("Ready in!");
@@ -204,7 +204,7 @@ public class LANManager implements Runnable {
                 //this.closeConnection();
                 System.out.println("Did not receive ready closing");
             }
-            //}
+            }
         } catch (IOException e) {
             System.out.println(e.toString());
         }
