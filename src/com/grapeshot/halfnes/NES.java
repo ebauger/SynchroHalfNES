@@ -70,9 +70,9 @@ public class NES {
                     frame++;
                     if (frame == MAXFRAME){
                         frame = 0;
-                        long conStartTime = System.nanoTime();
+                        //long conStartTime = System.nanoTime();
                         lanm.controllerSendReceive();
-                        System.out.println((System.nanoTime() - conStartTime)/1000000 );
+                        //System.out.println((System.nanoTime() - conStartTime)/1000000 );
                     }
                 }
                 //ENDLANMODE   

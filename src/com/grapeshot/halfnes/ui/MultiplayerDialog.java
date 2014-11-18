@@ -53,7 +53,7 @@ public class MultiplayerDialog extends javax.swing.JDialog {
         try {
             // TODO add your handling code here:
             ipHostTextField.setText(InetAddress.getLocalHost().getHostAddress());
-            ipClientTextField.setText(InetAddress.getLocalHost().getHostAddress());
+            //ipClientTextField.setText(InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException ex) {
             Logger.getLogger(MultiplayerDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -319,7 +319,8 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_ipHostTextFieldComponentShown
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    	LANManager.getInstance().init(true, this.gui.nes);
+    	//TODO revoke ipAddress
+        LANManager.getInstance().init(true, whiteIPTextField.getText(), this.gui.nes);
         LANManager.getInstance().ready();
         System.out.println("Player 1 (server)");
     }//GEN-LAST:event_jButton1ActionPerformed

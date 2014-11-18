@@ -52,15 +52,15 @@ public class LANManager implements Runnable {
         }
         return LANManager.instance;
     }
+    /*
+     public void init(boolean isHost, String whiteIpAddress, NES nes) {
+     this.isHost = isHost;
+     this.nes = nes;
+     this.controller1 = nes.controller1;
+     this.controller2 = nes.controller2;
+     this.initHost();
 
-    public void init(boolean isHost, NES nes) {
-        this.isHost = isHost;
-        this.nes = nes;
-        this.controller1 = nes.controller1;
-        this.controller2 = nes.controller2;
-        this.initHost();
-
-    }
+     }*/
 
     public void init(boolean isHost, String ipAddress, NES nes) {
         this.isHost = isHost;
@@ -68,7 +68,11 @@ public class LANManager implements Runnable {
         this.nes = nes;
         this.controller1 = nes.controller1;
         this.controller2 = nes.controller2;
-        this.initClient();
+        if (this.isHost) {
+            this.initHost();
+        } else {
+            this.initClient();
+        }
     }
 
     private void initHost() {
@@ -80,13 +84,20 @@ public class LANManager implements Runnable {
 
             this.socketserver = new ServerSocket(PORT);
             System.out.println("Host IP : " + this.socketserver.getInetAddress().getHostAddress());
-
             this.socketclient = this.socketserver.accept();
-            this.initStream();
-            this.controllernet = new NetworkController();
-            this.nes.controller1 = this.controller1;
-            this.nes.controller2 = this.controllernet;
-            //this.nes.setControllers(this.controller1, this.controllernet);
+
+            System.out.println("Client IP : " + this.socketclient.getInetAddress().toString());
+            System.out.println("Allowed IP : " + ipAddress);
+            String allowIP = "/" + ipAddress;
+            if (this.socketclient.getInetAddress().toString().equals(allowIP)) {
+                this.initStream();
+                this.controllernet = new NetworkController();
+                this.nes.controller1 = this.controller1;
+                this.nes.controller2 = this.controllernet;
+                //this.nes.setControllers(this.controller1, this.controllernet);
+            } else {
+                this.closeConnection();
+            }
 
         } catch (IOException e) {
 
@@ -184,15 +195,15 @@ public class LANManager implements Runnable {
         boolean ready = false;
         try {
             //while (!ready) {
-                String reading = this.in.readUTF();
-                if (reading.equals("ready")) {
-                    System.out.println("Ready in!");
-                    ready = true;
-                    this.runEmulation(true); // runEmulation on NES.run
-                } else {
-                    //this.closeConnection();
-                    System.out.println("Did not receive ready closing");
-                }
+            String reading = this.in.readUTF();
+            if (reading.equals("ready")) {
+                System.out.println("Ready in!");
+                ready = true;
+                this.runEmulation(true); // runEmulation on NES.run
+            } else {
+                //this.closeConnection();
+                System.out.println("Did not receive ready closing");
+            }
             //}
         } catch (IOException e) {
             System.out.println(e.toString());
@@ -211,12 +222,11 @@ public class LANManager implements Runnable {
             System.out.println("Ready out!");
             new Thread(getInstance()).start();
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
+/*
     public void closeConnection() {
         if (this.nes.isHost) {
             try {
@@ -225,18 +235,45 @@ public class LANManager implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            //resert instance
             this.socketclient = null;
             this.socketserver = null;
-            this.initHost(); // retry connection for the server
+            //this.initHost(); // retry connection for the server
         } else {
             try {
                 this.socketclient.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            //no more LAN mode
             this.nes.isLAN = false;
             this.socketclient = null;
         }
+    }*/
+
+    public void closeConnection() {
+        try {
+            if (this.nes.isHost) {
+                this.socketclient.close();
+                this.socketserver.close();
+            } else {
+                this.socketclient.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //resert instance
+        this.socketclient = null;
+        this.socketserver = null;
+        this.nes.isLAN = false;
+            //this.initHost(); // retry connection for the server
+
+    }
+
+    public void resetConnection() {
+        this.closeConnection();
+        this.initHost();
     }
 
     public void setPathROM(String ROMpath) {

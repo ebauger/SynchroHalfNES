@@ -610,6 +610,7 @@ public class GUIImpl extends JFrame implements GUIInterface {
             padController1.stopEventQueue();
             padController2.stopEventQueue();
             nes.quit();
+            LANManager.getInstance().closeConnection();
 
         }
 
