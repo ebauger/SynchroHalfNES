@@ -67,9 +67,11 @@ public class NES {
                 //LANMODE
                 if (isLAN) {
                     frame++;
-                    if (frame % 2 == 0){
+                    if (frame == 2){
                         frame = 0;
+                        long conStartTime = System.nanoTime();
                         lanm.controllerSendReceive();
+                        System.out.println((System.nanoTime() - conStartTime)/1000000 );
                     }
                 }
                 //ENDLANMODE   
@@ -197,7 +199,7 @@ public class NES {
             //and start emulation
             cpu.init();
             mapper.init();
-            //runEmulation = true;
+            runEmulation = !isLAN;
         } else {
             gui.messageBox("Could not load file:\nFile " + filename + "\n"
                     + "does not exist or is not a valid NES game.");

@@ -316,6 +316,8 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     private void selectROMButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectROMButtonMouseClicked
         this.gui.loadROMPath();
         LANManager.getInstance().setPathROM(this.gui.getROMpath());
+        this.gui.nes.loadROM(this.gui.getROMpath());
+
 
     }//GEN-LAST:event_selectROMButtonMouseClicked
 
@@ -332,6 +334,7 @@ public class MultiplayerDialog extends javax.swing.JDialog {
     private void selectROMButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectROMButton1MouseClicked
     	this.gui.loadROMPath();
         LANManager.getInstance().setPathROM(this.gui.getROMpath());
+        this.gui.nes.loadROM(this.gui.getROMpath());
 
         
     }//GEN-LAST:event_selectROMButton1MouseClicked

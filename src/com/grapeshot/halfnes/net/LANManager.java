@@ -133,7 +133,6 @@ public class LANManager implements Runnable {
                 this.nes.controller2 = this.controllernet;
                 //this.nes.setControllers(controller1, controllernet); // reset controller
             } catch (IOException e) {
-                //((GUIImpl)this.nes.gui).connectionStopped();
                 System.out.println("Connection Lost");
                 this.runEmulation(false);
                 try {
@@ -207,7 +206,7 @@ public class LANManager implements Runnable {
     public void ready() {
         try {
             //LANManager lm = new LANManager(this.nes.in, this);
-            this.nes.loadROM(this.ROMpath);
+            //this.nes.loadROM(this.ROMpath);
             this.out.writeUTF("ready");
             System.out.println("Ready out!");
             new Thread(getInstance()).start();

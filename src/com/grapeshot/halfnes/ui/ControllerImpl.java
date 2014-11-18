@@ -34,7 +34,7 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
     private Controller gameController;
     private Component[] buttons;
     private final ScheduledExecutorService thread = Executors.newSingleThreadScheduledExecutor();
-    private int latchbyte = 0, controllerbyte = 0, prevbyte = 0, outbyte = 0, gamepadbyte = 0;
+    private int latchbyte = 0, controllerbyte = 0, prevbyte = 0, outbyte = 0, gamepadbyte = 0, slatchbyte = 0;
     private final HashMap<Integer, Integer> m = new HashMap<Integer, Integer>(10);
     private final int controllernum;
 
@@ -108,12 +108,13 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
     }
 
     public void output(final boolean state) {
-        latchbyte = gamepadbyte | controllerbyte;
+        latchbyte = slatchbyte;//gamepadbyte | controllerbyte;
     }
     
     @Override
     public int getLatchByte(){
-        return (this.gamepadbyte | this.controllerbyte);
+        slatchbyte = this.gamepadbyte | this.controllerbyte;
+        return slatchbyte;
     }
 
     /**
